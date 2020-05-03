@@ -1,8 +1,30 @@
 /*
- * solution for the 0/1 knapsack problem using
- * a dynamic programming approach
+ * solution for the 0/1 knapsack problem
+ * using a dynamic programming approach
+ * see https://de.wikipedia.org/wiki/Rucksackproblem
  */
 class Knapsack {
+
+    public static class MyObject {
+
+        private int weight;
+
+        private int value;
+
+        MyObject(int w, int v) {
+            this.weight = w;
+            this.value = v;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+    }
 
     /*
      * number of objects to pick from
@@ -90,14 +112,17 @@ class Knapsack {
                      * pick either:
                      * max value obtainable without object i
                      * or max value obtainable with object i
-                     *
-                     *
                      */
                     matrix[i][j] = Math.max(
                             objects[i - 1].getValue() + matrix[i - 1][j - objects[i - 1].getWeight()],
                             matrix[i - 1][j]
                     );
                 } else {
+                    /*
+                     * if weight of current object is more
+                     * than j than forward value without
+                     * current object
+                     */
                     matrix[i][j] = matrix[i - 1][j];
                 }
             }
@@ -112,7 +137,7 @@ class Knapsack {
          */
         MyObject[] myObjects = {
                 new MyObject(2, 10),
-                new MyObject(3, 100),
+                new MyObject(3, 40),
                 new MyObject(1, 90),
                 new MyObject(4, 50)
         };
